@@ -1,0 +1,99 @@
+Execution Steps
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+1. Set Up Your Environment
+
+Required Libraries:
+Install these dependencies if not already installed:
+
+pip install tensorflow flask numpy pillow
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+2. Project Folder Structure
+
+Organize files like this:
+
+```
+Melanoma_Detection_App/
+│
+├── app.py
+├── my_hybrid_model.h5
+├── templates/
+│   ├── index.html
+│   └── result.html
+├── static/
+│   └── uploads/   ← Will be created at runtime if not present
+├── Melanoma_Code.ipynb  ← Reference notebook
+```
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+3. Model (Hybrid ViT + CNN)
+
+- The model is built using a custom `Patches` and `PatchEncoder` layer for the Vision Transformer component.
+- Saved in `my_hybrid_model.h5`
+- Loaded with:
+```python
+load_model('my_hybrid_model.h5', custom_objects={'Patches': Patches, 'PatchEncoder': PatchEncoder})
+```
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+4. Prediction Function
+
+- Preprocesses the image (resize to 224x224, normalize, expand dims).
+- Predicts binary classification: Melanoma vs No Melanoma
+- Returns readable text output with probability.
+
+Example logic:
+
+```
+if probability >= 0.5:
+    result = 'Melanoma Detected (Probability: {:.2f}%)'.format(probability * 100)
+else:
+    result = 'No Melanoma Detected (Probability: {:.2f}%)'.format((1 - probability) * 100)
+
+```
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+5. Flask Web App Logic
+
+➤ `index()` – Landing page
+- Route: `/`
+- Displays upload form (handled by `index.html`).
+
+➤ `upload_and_predict()` – Handle Upload + Prediction
+- Route: `/predict` (POST method)
+- Saves uploaded image
+- Calls `make_prediction(image_path)`
+- Renders result in `result.html`
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+6. Run the Application
+
+From terminal:
+
+python app.py
+
+Then open in browser:
+
+http://127.0.0.1:5000/
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+7. Execution Summary
+-------------------------------------------------------------
+| Step | Task                                               |
+|------|----------------------------------------------------| 
+| 1    | Install dependencies                               |
+| 2    | Place model, app.py, and templates correctly       |
+| 3    | Run `app.py`                                       |
+| 4    | Open browser, upload image                         |
+| 5    | View prediction and uploaded image on results page |
+-------------------------------------------------------------
+

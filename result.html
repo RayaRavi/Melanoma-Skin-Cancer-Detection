@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            background-image: url('https://img.freepik.com/free-vector/hand-drawn-flat-design-melanoma-illustration_23-2149381785.jpg?ga=GA1.1.1302630576.1721566182&semt=ais_hybrid');
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: #ffffff;
+            background-image: url('data:image/jpeg;base64,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');
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555555;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        img {
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            width: 300px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        a:hover {
+            background-color: #008c9e;
+            box-shadow: 0 6px 15px rgba(0, 140, 158, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Result</h1>
+        <p>{{ prediction }}</p>
+        <img src="{{ url_for('static', filename='uploads/' + image_url.split('/')[-1]) }}" alt="Uploaded Image">
+        <p><a href="{{ url_for('index') }}">Upload Another Image</a></p>
+    </div>
+</body>
+</html>
